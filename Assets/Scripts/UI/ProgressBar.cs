@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent (typeof(Slider))]
-public abstract class ProgressBar : MonoBehaviour
+public class ProgressBar : MonoBehaviour
 {
     private Slider _slider;
 
@@ -12,19 +12,11 @@ public abstract class ProgressBar : MonoBehaviour
         _slider = GetComponent<Slider>();
     }
 
-    protected void OnValueChanged(int value, int maxValue)
+    public void SetValue(float value, float maxValue)
     {
         if (value > maxValue)
             throw new ArgumentOutOfRangeException(nameof(maxValue));
 
-        _slider.value = (float)value / maxValue;
-    }
-
-    protected void OnValueChanged(float value, float maxValue)
-    {
-        if (value > maxValue)
-            throw new ArgumentOutOfRangeException(nameof(maxValue));
-
-        _slider.value = (float)value / maxValue;
+        _slider.value = value / maxValue;
     }
 }

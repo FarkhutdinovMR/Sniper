@@ -31,6 +31,11 @@ public class Enemy : MonoBehaviour
             _movement.Move(_target.position);
     }
 
+    public void Init(Transform target)
+    {
+        _target = target;
+    }
+
     private bool TryAttack()
     {
         if (_attack != null)

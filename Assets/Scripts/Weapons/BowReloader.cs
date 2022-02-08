@@ -5,7 +5,7 @@ using UnityEngine;
 public class BowReloader : MonoBehaviour, IReloader
 {
     [SerializeField] private ArrowShooter _arrow;
-    [SerializeField] private Transform _startPoint;
+    [SerializeField] private Transform _reloadPoint;
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private float _reloadDuration;
 
@@ -23,7 +23,7 @@ public class BowReloader : MonoBehaviour, IReloader
 
     private IEnumerator StartReload()
     {
-        ArrowShooter arrow = Instantiate(_arrow, _startPoint.position, _shootPoint.rotation);
+        ArrowShooter arrow = Instantiate(_arrow, _reloadPoint.position, _shootPoint.rotation);
         arrow.transform.parent = transform;
 
         float runningTime = 0;
@@ -32,7 +32,7 @@ public class BowReloader : MonoBehaviour, IReloader
         {
             runningTime += Time.deltaTime;
 
-            arrow.transform.position = Vector3.Lerp(_startPoint.position, _shootPoint.position, runningTime / _reloadDuration);
+            arrow.transform.position = Vector3.Lerp(_reloadPoint.position, _shootPoint.position, runningTime / _reloadDuration);
 
             yield return null;
         }

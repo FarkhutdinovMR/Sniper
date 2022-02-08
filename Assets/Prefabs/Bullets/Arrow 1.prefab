@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7875648024374558681}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 6821224175022055282}
   - {fileID: 4794681171717335976}
@@ -80,7 +80,7 @@ MonoBehaviour:
   _damage: 50
   _puchForce: 10
   _destroyTime: 20
-  _startSpeed: 50
+  _startSpeed: 40
   _rayDistance: 2
   _head: {fileID: 4794681171717335976}
   _layerMask:

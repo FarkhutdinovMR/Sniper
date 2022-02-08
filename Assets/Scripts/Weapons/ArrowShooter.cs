@@ -18,7 +18,6 @@ public class ArrowShooter : MonoBehaviour, IShooter
     {
         _rigidbody = GetComponent<Rigidbody>();
         _camera = Camera.main;
-        Destroy(gameObject, _destroyTime);
     }
 
     private void Update()
@@ -62,6 +61,7 @@ public class ArrowShooter : MonoBehaviour, IShooter
                 health.TakeDamage(_damage);
 
             Push(hit.collider.gameObject);
+            Destroy(gameObject, _destroyTime);
         }
     }
 
