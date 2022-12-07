@@ -7,11 +7,13 @@ public class Rifle : MonoBehaviour, IWeapon
     [SerializeField] private MonoBehaviour _zoomSource;
     private IZoom _zoom => (IZoom)_zoomSource;
 
-    [SerializeField] CinemachineImpulseSource _impulseSource;
+    [SerializeField] private CinemachineImpulseSource _impulseSource;
+    [SerializeField] private Transform _camera;
 
     public void Shoot()
     {
-        Instantiate(_bulletTemplate);
+        Bullet bullet = Instantiate(_bulletTemplate);
+        bullet.Init(_camera);
         _impulseSource.GenerateImpulse();
     }
 
