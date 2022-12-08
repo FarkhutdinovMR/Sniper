@@ -5,11 +5,6 @@ public class WeaponSmoothRotater : MonoBehaviour
     [SerializeField] private Transform _target;
     [SerializeField] private float _dampTime;
 
-    private void Start()
-    {
-        transform.parent = null;
-    }
-
     private void LateUpdate()
     {
         transform.position = _target.position;

@@ -2,25 +2,22 @@ using UnityEngine;
 
 public class DamageReceiver : MonoBehaviour, IDamagable
 {
-    [SerializeField] private MonoBehaviour _damagableSource;
-    private IDamagable _damagable => (IDamagable)_damagableSource;
+    [SerializeField] private float _damageMultiplier = 1f;
+    [SerializeField] private MonoBehaviour _healthSource;
+    private IHealth _health => (IHealth)_healthSource;
 
     public void TakeDamage(uint damage)
     {
-        _damagable.TakeDamage(damage);
+        if (_health.IsAlive)
+            _health.TakeDamage((uint)(damage * _damageMultiplier));
     }
 
     private void OnValidate()
     {
-        if (_damagableSource && !(_damagableSource is IDamagable))
+        if (_healthSource && !(_healthSource is IHealth))
         {
-            Debug.LogError(nameof(_damagableSource) + "is not implement " + nameof(IDamagable));
-            _damagableSource = null;
+            Debug.LogError(nameof(_healthSource) + "is not implement " + nameof(IHealth));
+            _healthSource = null;
         }
     }
-}
-
-public interface IDamagable
-{
-    void TakeDamage(uint damage);
 }

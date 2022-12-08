@@ -17,4 +17,9 @@ public class EnemyAnimator : MonoBehaviour
     {
         _animator.SetFloat(AnimatorCharacterController.Params.Forward, _movement.CurrentSpeed, _dampTime, Time.deltaTime);
     }
+
+    public void Shoot()
+    {
+        _animator.SetTrigger(AnimatorCharacterController.Params.Shoot);
+    }
 }

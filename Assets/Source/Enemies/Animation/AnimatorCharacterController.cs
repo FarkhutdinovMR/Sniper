@@ -5,5 +5,6 @@ public static class AnimatorCharacterController
         public const string Right = nameof(Right);
         public const string Forward = nameof(Forward);
         public const string Offset = nameof(Offset);
+        public const string Shoot = nameof(Shoot);
     }
 }

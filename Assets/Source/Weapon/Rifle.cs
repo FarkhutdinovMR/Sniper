@@ -1,7 +1,7 @@
 using Cinemachine;
 using UnityEngine;
 
-public class Rifle : MonoBehaviour, IWeapon
+public class Rifle : Weapon, ISniperWeapon
 {
     [SerializeField] private Bullet _bulletTemplate;
     [SerializeField] private MonoBehaviour _zoomSource;
@@ -9,17 +9,27 @@ public class Rifle : MonoBehaviour, IWeapon
 
     [SerializeField] private CinemachineImpulseSource _impulseSource;
     [SerializeField] private Transform _camera;
+    [SerializeField] private Alarm _alarm;
 
-    public void Shoot()
+    protected override void OnShoot()
     {
+        if (_zoom.IsActive == false)
+            return;
+
         Bullet bullet = Instantiate(_bulletTemplate);
         bullet.Init(_camera);
         _impulseSource.GenerateImpulse();
+
+        if (_alarm.IsActive == false)
+            _alarm.RaiseAlarm();
     }
 
     public void Zoom()
     {
-        _zoom.DoZoom();
+        if (_zoom.IsActive)
+            _zoom.Out();
+        else
+            _zoom.In();
     }
 
     private void OnValidate()
@@ -31,11 +41,3 @@ public class Rifle : MonoBehaviour, IWeapon
         }
     }
 }
-
-public interface IWeapon
-{
-    void Shoot();
-    void Zoom();
-}
-
-public interface IBullet { }

@@ -3,6 +3,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour, IBullet
 {
     [SerializeField] private float _pushForce;
+    [SerializeField] private uint _damage;
 
     private Transform _camera;
 
@@ -15,11 +16,13 @@ public class Bullet : MonoBehaviour, IBullet
     {
         if (Physics.Raycast(_camera.position, _camera.forward, out RaycastHit hitInfo))
         {
-            if (hitInfo.transform.TryGetComponent(out IDamagable damagable))
-                damagable.TakeDamage(0);
+            if (hitInfo.transform.TryGetComponent(out IDamagable health))
+                    health.TakeDamage(_damage);
 
             if (hitInfo.rigidbody != null)
                 Push(hitInfo);
+
+            Debug.Log(hitInfo.transform.name);
         }
 
         Destroy(gameObject);

@@ -6,11 +6,12 @@ public class Zoom : MonoBehaviour, IZoom
     [SerializeField] private Animator _animator;
     [SerializeField] private CinemachineVirtualCamera _idleCamera;
     [SerializeField] private CinemachineVirtualCamera _zoomCamera;
+    [SerializeField] private GameObject _scope;
 
     private CinemachinePOV _idleCinemachinePOV;
     private CinemachinePOV _zoomCinemachinePOV;
 
-    private bool _isZoom;
+    public bool IsActive => _scope.activeSelf;
 
     private void Start()
     {
@@ -20,26 +21,26 @@ public class Zoom : MonoBehaviour, IZoom
         _zoomCinemachinePOV = componentBase as CinemachinePOV;
     }
 
-    public void DoZoom()
+    public void In()
     {
-        if (_isZoom)
-        {
-            _isZoom = false;
-            _animator.Play("Idle");
-            _idleCinemachinePOV.m_VerticalAxis.Value = _zoomCinemachinePOV.m_VerticalAxis.Value;
-            _idleCinemachinePOV.m_HorizontalAxis.Value = _zoomCinemachinePOV.m_HorizontalAxis.Value;
-        }
-        else
-        {
-            _isZoom = true;
-            _animator.Play("Zoom");
-            _zoomCinemachinePOV.m_VerticalAxis.Value = _idleCinemachinePOV.m_VerticalAxis.Value;
-            _zoomCinemachinePOV.m_HorizontalAxis.Value = _idleCinemachinePOV.m_HorizontalAxis.Value;
-        }
+        _animator.Play("Idle");
+        _idleCinemachinePOV.m_VerticalAxis.Value = _zoomCinemachinePOV.m_VerticalAxis.Value;
+        _idleCinemachinePOV.m_HorizontalAxis.Value = _zoomCinemachinePOV.m_HorizontalAxis.Value;
+        _scope.SetActive(false);
+    }
+
+    public void Out()
+    {
+        _animator.Play("Zoom");
+        _zoomCinemachinePOV.m_VerticalAxis.Value = _idleCinemachinePOV.m_VerticalAxis.Value;
+        _zoomCinemachinePOV.m_HorizontalAxis.Value = _idleCinemachinePOV.m_HorizontalAxis.Value;
+        _scope.SetActive(true);
     }
 }
 
 public interface IZoom
 {
-    void DoZoom();
+    bool IsActive { get; }
+    void In();
+    void Out();
 }

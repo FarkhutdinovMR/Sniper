@@ -4,11 +4,11 @@ using static UnityEngine.InputSystem.InputAction;
 public class PlayerInputRouter : MonoBehaviour
 {
     [SerializeField] private MonoBehaviour _weaponSource;
-    private IWeapon _weapon => (IWeapon)_weaponSource;
+    private ISniperWeapon _weapon => (ISniperWeapon)_weaponSource;
 
     public void OnShoot(CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && _weapon.CanShoot)
             _weapon.Shoot();
     }
 
@@ -20,9 +20,9 @@ public class PlayerInputRouter : MonoBehaviour
 
     private void OnValidate()
     {
-        if (_weaponSource && !(_weaponSource is IWeapon))
+        if (_weaponSource && !(_weaponSource is ISniperWeapon))
         {
-            Debug.LogError(nameof(_weaponSource) + "is not implement " + nameof(IWeapon));
+            Debug.LogError(nameof(_weaponSource) + "is not implement " + nameof(ISniperWeapon));
             _weaponSource = null;
         }
     }

@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour, IDamagable
         EnableRagdoll();
         _behaviorTree.DisableBehavior();
     }
-
     private void EnableRagdoll()
     {
         foreach (Rigidbody rigidbody in _rigidbodies)
@@ -27,9 +26,10 @@ public class Enemy : MonoBehaviour, IDamagable
         _animator.enabled = false;
     }
 
-    private void DisableRagdoll()
+    public void DisableRagdoll()
     {
         foreach (Rigidbody rigidbody in _rigidbodies)
             rigidbody.isKinematic = true;
     }
+
 }
